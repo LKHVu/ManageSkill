@@ -1,0 +1,57 @@
+use projectskill;
+CREATE TABLE IF NOT EXISTS Roles (
+  role_id INT PRIMARY KEY,
+  role_name VARCHAR(255)
+);
+CREATE TABLE IF NOT EXISTS Users (
+  user_id INT PRIMARY KEY,
+  username VARCHAR(255),
+  password_hash VARCHAR(255),
+  role_id INT,
+  FOREIGN KEY (role_id) REFERENCES Roles(role_id)
+);
+
+CREATE TABLE IF NOT EXISTS Teams (
+  team_id INT PRIMARY KEY,
+  team_name VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Team_Members (
+  team_member_id INT PRIMARY KEY,
+  user_id INT,
+  team_id INT,
+  FOREIGN KEY (user_id) REFERENCES Users(user_id),
+  FOREIGN KEY (team_id) REFERENCES Teams(team_id)
+);
+
+CREATE TABLE IF NOT EXISTS Skill_Groups (
+  skill_group_id INT PRIMARY KEY,
+  group_name VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Skills (
+  skill_id INT PRIMARY KEY,
+  skill_name VARCHAR(255),
+  skill_group_id INT,
+  FOREIGN KEY (skill_group_id) REFERENCES Skill_Groups(skill_group_id)
+);
+
+CREATE TABLE IF NOT EXISTS Member_Skills (
+  member_skill_id INT PRIMARY KEY,
+  user_id INT,
+  skill_id INT,
+  proficiency_level VARCHAR(255),
+  FOREIGN KEY (user_id) REFERENCES Users(user_id),
+  FOREIGN KEY (skill_id) REFERENCES Skills(skill_id)
+);
+
+-- Bổ sung bảng mới cho điểm số
+CREATE TABLE IF NOT EXISTS Scores (
+  score_id INT PRIMARY KEY,
+  user_id INT,
+  skill_id INT,
+  score INT,
+  date_scored DATE,
+  FOREIGN KEY (user_id) REFERENCES Users(user_id),
+  FOREIGN KEY (skill_id) REFERENCES Skills(skill_id)
+);
