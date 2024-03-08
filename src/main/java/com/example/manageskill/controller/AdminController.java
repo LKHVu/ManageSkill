@@ -10,4 +10,12 @@ public class AdminController {
     public String adminPage() {
         return "admin"; // Return the name of the admin page (admin.html)
     }
+    @GetMapping("/teams")
+    public String adminTeam() {
+        return "teams"; // Return the name of the admin page (teams.html)
+    }
+    @GetMapping("/members")
+    public String adminMember() {
+        return "members"; // Return the name of the admin page (members.html)
+    }
 }

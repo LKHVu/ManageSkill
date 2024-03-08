@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chính</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Quản lý Ma trận Kỹ năng Nhóm</title>
+    <link rel="stylesheet" type="text/css" href="/index.css">
 </head>
 <body>
 <header>
-    <h1>Trang Chính</h1>
+    <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+    <nav>
+        <ul>
+            <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <li><a href="/admin">Dashboard</a></li>
+            <li><a href="/teams">Quản lý Nhóm</a></li>
+            <li><a href="/members">Quản lý Thành viên</a></li>
+            <li><a href="/skill-groups">Quản lý Nhóm Kỹ năng</a></li>
+            <li><a href="/skills">Quản lý Kỹ năng</a></li>
+            <li><a href="/logout">Đăng xuất</a></li>
+        </div>
+        </ul>
+    </nav>
 </header>
 <div class="container">
     <div class="content">
-        <h2>Chào mừng đến với ứng dụng của chúng tôi!</h2>
-        <p>
-            Đây là một trang thông tin dành cho khách không cần đăng nhập.
-            Bạn có thể đặt một số thông tin cơ bản về ứng dụng, sản phẩm hoặc dịch vụ của bạn ở đây.
-        </p>
-        <p>
-            Vui lòng <a href="login.html">đăng nhập</a> hoặc <a href="register.html">đăng ký</a>
-            nếu bạn muốn trải nghiệm đầy đủ các tính năng của ứng dụng.
-        </p>
+            <li><a href="/userskill">tự xem skill của mình</a></li>
+            <li><a href="/userteam">xem thành viên trong team</a></li>
+            <li><a href="/logout">Đăng xuất</a></li>
     </div>
 </div>
 </body>
