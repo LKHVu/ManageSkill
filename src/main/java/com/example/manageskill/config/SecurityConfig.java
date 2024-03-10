@@ -73,8 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login").permitAll();
 
         http.authorizeRequests().antMatchers("/admin").hasRole("ADMIN");
-        http.authorizeRequests().antMatchers("/teams").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/teams/**").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/members/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/list-teammembers/**").hasRole("ADMIN");
         // thiết lập action trả về khi truy cập trang không có quyền
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/deny");
 

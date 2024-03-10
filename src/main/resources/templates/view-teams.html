@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Teams</title>
+</head>
+<body>
+<h2>Teams</h2>
+<table>
+  <tr>
+    <th>Team Name</th>
+    <th>Action</th>
+  </tr>
+  <!-- Duyệt qua danh sách team và hiển thị thông tin của mỗi team -->
+  <tr th:each="team : ${teams}">
+    <td th:text="${team.teamName}"></td>
+    <td>
+      <!-- Nút sửa -->
+      <a th:href="@{'/teams/view/edit/' + ${team.teamId}}">Edit</a>
+      <!-- Nút xóa -->
+      <a th:href="@{'/teams/delete/' + ${team.teamId}}">Delete</a>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

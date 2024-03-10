@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Team Members</title>
+</head>
+<body>
+<h2>View Team Members</h2>
+<table>
+    <tr>
+        <th>Member ID</th>
+        <th>Team ID</th>
+        <th>Username</th>
+        <th>Action</th>
+    </tr>
+    <!-- Loop through list of Teammembers -->
+    <tr th:each="teammember : ${teammembers}">
+        <td th:text="${teammember.memberId}"></td>
+        <td th:text="${teammember.team.teamId}"></td>
+        <td th:text="${teammember.user.username}"></td>
+        <td>
+            <a th:href="@{'/teammembers/edit/' + ${teammember.memberId}}">Update</a>
+            <a th:href="@{'/teammembers/delete/' + ${teammember.memberId}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
