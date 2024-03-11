@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Team Member</title>
+</head>
+<body>
+<h2>Create Team Member</h2>
+<form action="/teammembers/create" method="post">
+  <label for="username">Username:</label>
+  <select id="username" name="username">
+    <option value="">-- Select User --</option>
+    <!-- Thêm các option dựa trên danh sách username chưa có team -->
+    <th:block th:each="user : ${users}">
+      <option th:value="${user}" th:text="${user}"></option>
+    </th:block>
+  </select><br><br>
+
+  <label for="team">Team:</label>
+  <select id="team" name="team">
+    <option value="">-- Select Team --</option>
+    <!-- Thêm các option dựa trên danh sách team -->
+    <th:block th:each="team : ${teams}">
+      <option th:value="${team.teamId}" th:text="${team.teamName}"></option>
+    </th:block>
+  </select><br><br>
+
+  <!-- Thêm trường input ẩn để lưu trữ teamId -->
+  <input type="hidden" id="teamId" name="teamId" value="">
+
+  <button type="submit">Create</button>
+</form>
+
+<!-- Script để cập nhật giá trị của trường input ẩn 'teamId' khi người dùng chọn team -->
+<script>
+  document.getElementById("team").addEventListener("change", function() {
+    var teamId = this.value;
+    document.getElementById("teamId").value = teamId;
+  });
+</script>
+</body>
+</html>

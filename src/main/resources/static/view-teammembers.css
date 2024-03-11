@@ -1,0 +1,32 @@
+.team-member-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.team-member-table th,
+.team-member-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.team-member-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.team-member-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4c5baf;
+    color: white;
+}
+
+.team-member-table a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.team-member-table a:hover {
+    color: #0056b3;
+}

@@ -1,57 +1,41 @@
-/* Reset CSS */
-* {
+body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Header Styles */
 header {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
+    background-color: #554e9f;
+    padding: 20px;
 }
 
-h1 {
-    font-size: 2rem;
+header h1 {
+    color: white;
+    margin: 0;
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
+    list-style-type: none;
+    padding: 0;
 }
 
 nav ul li {
-    margin: 0 1rem;
+    display: inline;
+    margin-right: 10px;
 }
 
 nav ul li a {
-    color: #fff;
+    color: rgb(0, 0, 0);
     text-decoration: none;
 }
 
-/* Container Styles */
 .container {
-    max-width: 960px;
-    margin: 20px auto;
-    padding: 0 10px;
+    padding: 20px;
 }
 
 .content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .content li {
@@ -61,4 +45,35 @@ nav ul li a {
 .content li a {
     color: #333;
     text-decoration: none;
+}
+
+.content li a:hover {
+    color: #555;
+}
+header a {
+    background-color: rgb(192, 192, 209);
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+header a:hover {
+    color: rgb(17, 16, 16);
+    background-color: transparent;
+}
+
+.container .content a {
+    background-color: rgb(226, 209, 209);
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.container .content a:hover {
+    color: rgb(0, 0, 0);
+    background-color: transparent;
 }

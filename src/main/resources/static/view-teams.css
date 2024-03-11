@@ -1,0 +1,32 @@
+.team-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.team-table th,
+.team-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.team-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.team-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4c5baf;
+    color: white;
+}
+
+.team-table a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.team-table a:hover {
+    color: #0056b3;
+}
