@@ -20,7 +20,7 @@
         <td th:text="${teammember.team.teamId}"></td>
         <td th:text="${teammember.user.username}"></td>
         <td>
-            <a th:href="@{'/teammembers/edit/' + ${teammember.memberId}}">Update</a>
+            <a th:href="@{'/teammembers/view/edit/' + ${teammember.memberId}}">Update</a>
             <a th:href="@{'/teammembers/delete/' + ${teammember.memberId}}">Delete</a>
         </td>
     </tr>

@@ -21,6 +21,9 @@ public class UserService {
         allUsers.removeAll(usersWithTeam);
         return allUsers;
     }
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
     // Phương thức để lấy thông tin người dùng dựa trên username
     public User getUserByUsername(String username) {

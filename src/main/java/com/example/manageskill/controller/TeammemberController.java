@@ -9,9 +9,7 @@ import com.example.manageskill.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -59,4 +57,12 @@ public class TeammemberController {
         }
         return "redirect:/teammembers";
     }
-}
+
+        // Endpoint để xóa team member
+        @GetMapping("/teammembers/delete/{id}")
+        public String deleteTeamMember(@PathVariable("id") Long id) {
+            teammemberService.deleteTeamMember(id);
+            return "redirect:/teammembers/view"; // Chuyển hướng người dùng đến trang danh sách team members sau khi xóa thành công
+        }
+    }
+

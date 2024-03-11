@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Team Member</title>
+</head>
+<body>
+<h2>Edit Team Member</h2>
+<form action="/teammembers/update" method="post">
+  <input type="hidden" name="memberId" th:value="${teamMember.memberId}" />
+
+  <label for="team">Team Name:</label>
+  <select id="team" name="teamId">
+    <option value="">-- Select Team --</option>
+    <!-- Duyệt qua danh sách team và hiển thị tên của mỗi team -->
+    <th:block th:each="team : ${teams}">
+      <option th:value="${team.teamId}" th:text="${team.teamName}"
+              th:selected="${team.teamId eq teamMember.team.teamId}"></option>
+    </th:block>
+  </select><br><br>
+
+  <label for="username">Username:</label>
+  <select id="username" name="username">
+    <option value="">-- Select User --</option>
+    <!-- Duyệt qua danh sách user và hiển thị username của mỗi user -->
+    <th:block th:each="user : ${users}">
+      <option th:value="${user.username}" th:text="${user.username}"
+              th:selected="${user.username eq teamMember.user.username}"></option>
+    </th:block>
+  </select><br><br>
+
+  <!-- Các trường khác cần chỉnh sửa, như tên, vị trí, vv -->
+
+  <button type="submit">Update</button>
+</form>
+</body>
+</html>

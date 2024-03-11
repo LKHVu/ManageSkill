@@ -25,15 +25,7 @@ public class TeammemberService {
             teammemberRepository.save(teammember);
         }
 
-//        public void updateTeammember(Long id, Teammember updatedTeammember) {
-//            Teammember existingTeammember = teammemberRepository.findById(id).orElse(null);
-//            if (existingTeammember != null) {
-//                existingTeammember.set... // Cập nhật thông tin của teammember
-//                teammemberRepository.save(existingTeammember);
-//            }
-//        }
-//
-//        public void deleteTeammember(Long id) {
-//            teammemberRepository.deleteById(id);
-//        }
+    public void deleteTeamMember(Long id) {
+        teammemberRepository.deleteById(id);
+    }
     }
