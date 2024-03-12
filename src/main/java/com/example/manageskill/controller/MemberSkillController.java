@@ -34,21 +34,25 @@ public class MemberSkillController {
         model.addAttribute("memberSkills", memberSkills);
         return "member-skills"; // Trả về tên của view để hiển thị danh sách kỹ năng của thành viên
     }
-    @GetMapping("/create")
+    @GetMapping("/create") // Đường dẫn cụ thể cho trang tạo mới
     public String showCreateMemberSkillForm(Model model) {
+        // Lấy danh sách người dùng chưa có trong MemberSkill
+        List<User> usersNotInMemberSkill = userService.getUsersNotInMemberSkill();
+
+        // Tạo một đối tượng MemberSkill mới
         MemberSkill memberSkill = new MemberSkill();
+
+        // Thêm danh sách người dùng vào model để hiển thị trong form
         model.addAttribute("memberSkill", memberSkill);
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", usersNotInMemberSkill);
         model.addAttribute("skills", skillService.getAllSkills());
-        return "create-member-skill"; // Trả về tên của view để hiển thị form tạo mới memberSkill
+
+        return "create-member-skill";
     }
 
     @PostMapping("/create")
     public String createMemberSkill(@ModelAttribute("memberSkill") MemberSkill memberSkill) {
-        // Để lưu MemberSkill, bạn cần thêm User vào trường user của MemberSkill trước.
-        User user = userService.getUserByUsername(memberSkill.getUser().getUsername());
-        memberSkill.setUser(user);
-        memberSkillService.save(memberSkill); // Lưu memberSkill mới vào cơ sở dữ liệu
-        return "redirect:/member-skills"; // Chuyển hướng người dùng đến trang hiển thị danh sách kỹ năng của thành viên sau khi tạo mới
+        memberSkillService.save(memberSkill);
+        return "redirect:/member-skills";
     }
 }
