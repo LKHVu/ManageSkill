@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Team Members</title>
-    <link rel="stylesheet" type="text/css" href="/view-teammembers.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/skill-groups.css">
+    <title>Skill Groups</title>
 </head>
-<body>
 <header>
     <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
     <nav>
@@ -22,25 +22,27 @@
         </ul>
     </nav>
 </header>
-<h2>View Team Members</h2>
-<table class="team-member-table">
+<body>
+<h2>Skill Groups</h2>
+<table>
+    <thead>
     <tr>
-        <th>Member ID</th>
-        <th>Team ID</th>
-        <th>Username</th>
-        <th>Action</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
     </tr>
-    <!-- Loop through list of Teammembers -->
-    <tr th:each="teammember : ${teammembers}">
-        <td th:text="${teammember.memberId}"></td>
-        <td th:text="${teammember.team.teamId}"></td>
-        <td th:text="${teammember.user.username}"></td>
+    </thead>
+    <tbody>
+    <tr th:each="skillGroup : ${skillGroups}">
+        <td th:text="${skillGroup.skillGroupId}"></td>
+        <td th:text="${skillGroup.skillGroupName}"></td>
         <td>
-            <a th:href="@{'/teammembers/view/edit/' + ${teammember.memberId}}">Update</a>
-            <a th:href="@{'/teammembers/delete/' + ${teammember.memberId}}">Delete</a>
+            <a th:href="@{/skill-groups/edit/{id}(id=${skillGroup.skillGroupId})}">Edit</a>
+            <a th:href="@{/skill-groups/delete/{id}(id=${skillGroup.skillGroupId})}">Delete</a>
         </td>
     </tr>
+    </tbody>
 </table>
-<a href="/teammembers" >Back to Teams Member Management</a>
+<a href="/skill-groups/create" class="create-button">Create New Skill Group</a>
 </body>
 </html>

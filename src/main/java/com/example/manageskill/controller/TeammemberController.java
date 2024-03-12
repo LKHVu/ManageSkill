@@ -58,6 +58,22 @@ public class TeammemberController {
         return "redirect:/teammembers";
     }
 
+    @GetMapping("/teammembers/view/edit/{id}")
+    public String showEditTeammemberForm(@PathVariable Long id, Model model) {
+        Teammember teamMember = teammemberService.getTeammemberById(id);
+        List<Team> teams = teamService.getAllTeams();
+        List<String> usersWithoutTeam = userService.findUsersWithoutTeam();
+        model.addAttribute("teamMember", teamMember);
+        model.addAttribute("teams", teams);
+        model.addAttribute("users", usersWithoutTeam);
+        return "edit-team-member";
+    }
+
+    @PostMapping("/teammembers/update")
+    public String updateTeammember(@ModelAttribute Teammember teammember) {
+        teammemberService.updateTeammember(teammember);
+        return "redirect:/teammembers/view";
+    }
         // Endpoint để xóa team member
         @GetMapping("/teammembers/delete/{id}")
         public String deleteTeamMember(@PathVariable("id") Long id) {

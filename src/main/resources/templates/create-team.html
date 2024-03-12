@@ -6,11 +6,29 @@
   <title>Create Team</title>
 </head>
 <body>
+<header>
+  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+  <nav>
+    <ul>
+      <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/teams">Quản lý Nhóm</a></li>
+        <li><a href="/members">Quản lý người dùng</a></li>
+        <li><a href="/teammembers">Quản lý thành viên nhóm</a></li>
+        <li><a href="/skill-groups">Quản lý Nhóm Kỹ năng</a></li>
+        <li><a href="/skills">Quản lý Kỹ năng</a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+      </div>
+    </ul>
+  </nav>
+</header>
 <h2>Create Team</h2>
 <form action="/teams" method="post">
   <label for="teamName">Team Name:</label>
   <input type="text" id="teamName" name="teamName">
   <button type="submit">Create Team</button>
+  <a href="/teams" >Back to Teams Management</a>
 </form>
+
 </body>
 </html>

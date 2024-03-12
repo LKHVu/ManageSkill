@@ -1,40 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 2em;
+    width: 300px;
+    margin-bottom: 20px;
 }
 
-label {
-    font-size: 1.2em;
-    margin-bottom: 0.5em;
-    text-align: center;
-    width: 100%;
+
+
+input {
+    padding: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
 }
 
-input[type="text"] {
-    padding: 0.5em;
-    font-size: 1em;
-    border-radius: 0.2em;
-    border: 1px solid #ccc;
-    width: 30%;
-    box-sizing: border-box;
-    margin-bottom: 1em;
-}
-
-button[type="submit"] {
-    padding: 0.5em 2em;
-    font-size: 1em;
-    border-radius: 0.2em;
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    background-color: #7777d5;
-    color: rgb(0, 0, 0);
+    border-radius: 3px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-    background-color: #3f4c92;
+button:hover {
+    background-color: #0056b3;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 body {
     margin: 0;
@@ -80,14 +85,9 @@ nav ul li a {
     margin-bottom: 10px;
 }
 
-.content li a {
-    color: #333;
-    text-decoration: none;
-}
 
-.content li a:hover {
-    color: #555;
-}
+
+
 header a {
     background-color: rgb(192, 192, 209);
     color: rgb(255, 255, 255);
@@ -100,4 +100,19 @@ header a {
 header a:hover {
     color: rgb(17, 16, 16);
     background-color: transparent;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+    border: 1px solid #ffffff;
+}
+
+.item {
+    background-color: lightblue;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
 }

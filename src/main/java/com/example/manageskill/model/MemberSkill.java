@@ -10,8 +10,8 @@ public class MemberSkill {
     private Long memberSkillId;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Teammember member;
+    @JoinColumn(name = "username")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "skill_id")
@@ -27,12 +27,12 @@ public class MemberSkill {
         this.memberSkillId = memberSkillId;
     }
 
-    public Teammember getMember() {
-        return member;
+    public User getUser() {
+        return user;
     }
 
-    public void setMember(Teammember member) {
-        this.member = member;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Skill getSkill() {

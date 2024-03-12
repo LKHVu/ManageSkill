@@ -12,7 +12,7 @@
     <nav>
         <ul>
             <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <li><a href="/admin">Dashboard</a></li>
+            <li><a href="/">Dashboard</a></li>
             <li><a href="/teams">Quản lý Nhóm</a></li>
             <li><a href="/members">Quản lý người dùng</a></li>
                 <li><a href="/teammembers">Quản lý thành viên nhóm</a></li>

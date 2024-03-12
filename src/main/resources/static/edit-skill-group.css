@@ -1,40 +1,47 @@
+h2 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2em;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 50%;
+    margin-top: 20px;
 }
 
 label {
-    font-size: 1.2em;
-    margin-bottom: 0.5em;
-    text-align: center;
-    width: 100%;
+    display: block;
+    margin-bottom: 10px;
 }
 
 input[type="text"] {
-    padding: 0.5em;
-    font-size: 1em;
-    border-radius: 0.2em;
-    border: 1px solid #ccc;
-    width: 30%;
-    box-sizing: border-box;
-    margin-bottom: 1em;
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
 button[type="submit"] {
-    padding: 0.5em 2em;
-    font-size: 1em;
-    border-radius: 0.2em;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
     border: none;
-    background-color: #7777d5;
-    color: rgb(0, 0, 0);
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
-    background-color: #3f4c92;
+    background-color: #0056b3;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 body {
     margin: 0;
@@ -100,4 +107,19 @@ header a {
 header a:hover {
     color: rgb(17, 16, 16);
     background-color: transparent;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+    border: 1px solid #ffffff;
+}
+
+.item {
+    background-color: lightblue;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
 }

@@ -24,7 +24,9 @@ public class TeammemberService {
         public void createTeammember(Teammember teammember) {
             teammemberRepository.save(teammember);
         }
-
+    public void updateTeammember(Teammember teammember) {
+        teammemberRepository.save(teammember);
+    }
     public void deleteTeamMember(Long id) {
         teammemberRepository.deleteById(id);
     }

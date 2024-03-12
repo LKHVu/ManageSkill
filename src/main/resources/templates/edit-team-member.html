@@ -3,35 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Edit Team Member</title>
+  <link rel="stylesheet" type="text/css" href="/edit-teammember.css">
 </head>
 <body>
+<header>
+  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+  <nav>
+    <ul>
+      <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/teams">Quản lý Nhóm</a></li>
+        <li><a href="/members">Quản lý người dùng</a></li>
+        <li><a href="/teammembers">Quản lý thành viên nhóm</a></li>
+        <li><a href="/skill-groups">Quản lý Nhóm Kỹ năng</a></li>
+        <li><a href="/skills">Quản lý Kỹ năng</a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+      </div>
+    </ul>
+  </nav>
+</header>
 <h2>Edit Team Member</h2>
 <form action="/teammembers/update" method="post">
   <input type="hidden" name="memberId" th:value="${teamMember.memberId}" />
 
-  <label for="team">Team Name:</label>
+  <label for="team">Team:</label>
   <select id="team" name="teamId">
-    <option value="">-- Select Team --</option>
-    <!-- Duyệt qua danh sách team và hiển thị tên của mỗi team -->
-    <th:block th:each="team : ${teams}">
-      <option th:value="${team.teamId}" th:text="${team.teamName}"
-              th:selected="${team.teamId eq teamMember.team.teamId}"></option>
-    </th:block>
+    <!-- Loop through teams and display options -->
+    <option th:each="team : ${teams}" th:value="${team.teamId}"
+            th:selected="${team.teamId eq teamMember.team.teamId}">
+      <!-- Display team name as option -->
+      <span th:text="${team.teamName}"></span>
+    </option>
   </select><br><br>
 
   <label for="username">Username:</label>
-  <select id="username" name="username">
-    <option value="">-- Select User --</option>
-    <!-- Duyệt qua danh sách user và hiển thị username của mỗi user -->
-    <th:block th:each="user : ${users}">
-      <option th:value="${user.username}" th:text="${user.username}"
-              th:selected="${user.username eq teamMember.user.username}"></option>
-    </th:block>
-  </select><br><br>
+  <input type="text" id="username" name="username" th:value="${teamMember.user.username}" readonly /><br><br>
 
-  <!-- Các trường khác cần chỉnh sửa, như tên, vị trí, vv -->
+  <!-- Other fields for editing, if any -->
 
   <button type="submit">Update</button>
 </form>
+<a href="/teammembers" >Back to Teams Member Management</a>
+<a href="/teammembers/view" >Back to View Team Members</a>
 </body>
 </html>

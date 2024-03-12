@@ -4,6 +4,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Team")
 public class Team {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long teamId;
+
+    private String teamName;
     public Long getTeamId() {
         return teamId;
     }
@@ -20,11 +25,7 @@ public class Team {
         this.teamName = teamName;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long teamId;
 
-    private String teamName;
 
     // Getters and setters
 }
