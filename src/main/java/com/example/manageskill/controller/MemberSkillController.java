@@ -8,10 +8,7 @@ import com.example.manageskill.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,6 +50,11 @@ public class MemberSkillController {
     @PostMapping("/create")
     public String createMemberSkill(@ModelAttribute("memberSkill") MemberSkill memberSkill) {
         memberSkillService.save(memberSkill);
+        return "redirect:/member-skills";
+    }
+    @GetMapping("/delete/{id}")
+    public String deleteMemberSkill(@PathVariable Long id) {
+        memberSkillService.deleteMemberSkill(id);
         return "redirect:/member-skills";
     }
 }
