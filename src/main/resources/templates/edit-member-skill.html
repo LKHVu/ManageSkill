@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Member Skill</title>
+</head>
+<body>
+<h2>Edit Member Skill</h2>
+<form action="/member-skills/update/{id}" method="post" th:object="${memberSkill}">
+  <input type="hidden" th:field="*{memberSkillId}">
+
+  <label for="username">User:</label>
+  <input type="text" id="username" name="username" th:field="*{user.username}">
+
+  <label for="skillId">Skill:</label>
+  <input type="text" id="skillId" name="skillId" th:field="*{skill.skillId}">
+
+  <label for="proficiencyLevel">Proficiency Level:</label>
+  <input type="text" id="proficiencyLevel" name="proficiencyLevel" th:field="*{proficiencyLevel}">
+
+  <button type="submit">Update</button>
+</form>
+<a href="/member-skills">Back to Member Skills</a>
+</body>
+</html>

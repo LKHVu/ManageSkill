@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/skill.css">
+  <title>Skills</title>
+</head>
+<body>
+<header>
+  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+  <nav>
+    <ul>
+      <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/teams">Quản lý Nhóm</a></li>
+        <li><a href="/members">Quản lý người dùng</a></li>
+        <li><a href="/teammembers">Quản lý thành viên nhóm</a></li>
+        <li><a href="/skill-groups">Quản lý Nhóm Kỹ năng</a></li>
+        <li><a href="/skills">Quản lý Kỹ năng</a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+      </div>
+    </ul>
+  </nav>
+</header>
+<h2>Skills</h2>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="skill : ${skills}">
+    <td th:text="${skill.skillId}"></td>
+    <td th:text="${skill.skillName}"></td>
+    <td>
+      <a th:href="@{/skills/edit/{id}(id=${skill.skillId})}">Edit</a>
+      <a th:href="@{/skills/delete/{id}(id=${skill.skillId})}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="/skills/create">Create New Skill</a>
+</body>
+</html>

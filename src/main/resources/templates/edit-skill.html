@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Skill</title>
+</head>
+<body>
+<h2>Edit Skill</h2>
+<form action="/skills/update" method="post" th:object="${skill}">
+  <input type="hidden" th:field="*{skillId}">
+  <label for="skillName">Name:</label>
+  <input type="text" id="skillName" name="skillName" th:field="*{skillName}">
+
+  <!-- Dropdown for skill group name -->
+  <label for="skillGroupId">Skill Group:</label>
+  <select id="skillGroupId" name="skillGroup.skillGroupId">
+    <option value="">-- Select Skill Group --</option>
+    <option th:each="group : ${skillGroups}"
+            th:value="${group.skillGroupId}"
+            th:text="${group.skillGroupName}"
+            th:selected="${group.skillGroupId == skill.skillGroup.skillGroupId}">Skill Group Name</option>
+  </select>
+
+  <button type="submit">Update</button>
+</form>
+<a href="/skills">Back to Skills</a>
+</body>
+</html>

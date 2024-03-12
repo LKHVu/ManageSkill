@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Member Skill</title>
+</head>
+<body>
+<h1>Create Member Skill</h1>
+<form action="/member-skills/create" method="post">
+  <label for="user">User:</label>
+  <select id="user" name="user">
+    <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"></option>
+  </select><br>
+  <label for="skill">Skill:</label>
+  <select id="skill" name="skill">
+    <option th:each="skill : ${skills}" th:value="${skill.skillId}" th:text="${skill.skillName}"></option>
+  </select><br>
+  <label for="proficiencyLevel">Proficiency Level:</label>
+  <input type="text" id="proficiencyLevel" name="proficiencyLevel"><br>
+  <button type="submit">Create</button>
+</form>
+</body>
+</html>

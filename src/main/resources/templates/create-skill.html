@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/skill.css">
+  <title>Create Skill</title>
+</head>
+<body>
+<header>
+  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+  <nav>
+    <ul>
+      <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/teams">Quản lý Nhóm</a></li>
+        <li><a href="/members">Quản lý người dùng</a></li>
+        <li><a href="/teammembers">Quản lý thành viên nhóm</a></li>
+        <li><a href="/skill-groups">Quản lý Nhóm Kỹ năng</a></li>
+        <li><a href="/skills">Quản lý Kỹ năng</a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+      </div>
+    </ul>
+  </nav>
+</header>
+<h2>Create Skill</h2>
+<form action="/skills/create" method="post" th:object="${skill}">
+  <label for="skillName">Name:</label>
+  <input type="text" id="skillName" name="skillName" th:field="*{skillName}">
+
+  <label for="skillGroup">Skill Group:</label>
+  <select id="skillGroup" name="skillGroup">
+    <option value="">-- Select Skill Group --</option>
+    <option th:each="group : ${skillGroups}" th:value="${group.skillGroupId}" th:text="${group.skillGroupName}"></option>
+  </select>
+
+  <button type="submit">Create</button>
+</form>
+<a href="/skills">Back to Skills</a>
+</body>
+</html>

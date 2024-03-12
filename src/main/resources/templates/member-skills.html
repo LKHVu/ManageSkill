@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Skills</title>
+</head>
+<body>
+<h2>Member Skills</h2>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Skill</th>
+    <th>Proficiency Level</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="memberSkill : ${memberSkills}">
+    <td th:text="${memberSkill.memberSkillId}"></td>
+    <td th:text="${memberSkill.user.username}"></td>
+    <td th:text="${memberSkill.skill.skillName}"></td>
+    <td th:text="${memberSkill.proficiencyLevel}"></td>
+    <td>
+      <a th:href="@{/member-skills/edit/{id}(id=${memberSkill.memberSkillId})}">Edit</a>
+      <a th:href="@{/member-skills/delete/{id}(id=${memberSkill.memberSkillId})}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="/member-skills/create">Create New Member Skill</a>
+</body>
+</html>
