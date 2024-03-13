@@ -1,6 +1,7 @@
 package com.example.manageskill.controller;
 
 import com.example.manageskill.model.MemberSkill;
+import com.example.manageskill.model.Skill;
 import com.example.manageskill.model.User;
 import com.example.manageskill.service.MemberSkillService;
 import com.example.manageskill.service.SkillService;
@@ -57,4 +58,26 @@ public class MemberSkillController {
         memberSkillService.deleteMemberSkill(id);
         return "redirect:/member-skills";
     }
+    @GetMapping("/update/{id}")
+    public String showUpdateMemberSkillForm(@PathVariable("id") Long id, Model model) {
+        MemberSkill memberSkill = memberSkillService.getMemberSkillById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member skill Id:" + id));
+
+        List<User> users = userService.getUsersNotInMemberSkill();
+        List<Skill> skills = skillService.getAllSkills();
+
+        model.addAttribute("memberSkill", memberSkill);
+        model.addAttribute("users", users);
+        model.addAttribute("skills", skills);
+
+        return "edit-member-skill";
+    }
+
+    @PostMapping("/update")
+    public String updateMemberSkill(@ModelAttribute("memberSkill") MemberSkill memberSkill) {
+        memberSkillService.save(memberSkill);
+        return "redirect:/member-skills";
+    }
+
+
 }

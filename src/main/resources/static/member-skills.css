@@ -63,3 +63,21 @@ header a:hover {
     color: rgb(17, 16, 16);
     background-color: transparent;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #4C5BAF;
+    color: #fff;
+}
+
+tr:nth-child(even) td {
+    background-color: #e0e0e0;
+}

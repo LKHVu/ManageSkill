@@ -42,7 +42,7 @@
     <td th:text="${memberSkill.skill.skillName}"></td>
     <td th:text="${memberSkill.proficiencyLevel}"></td>
     <td>
-      <a th:href="@{/member-skills/edit/{id}(id=${memberSkill.memberSkillId})}">Edit</a>
+      <a th:href="@{/member-skills/update/{id}(id=${memberSkill.memberSkillId})}">Edit</a>
       <a th:href="@{/member-skills/delete/{id}(id=${memberSkill.memberSkillId})}">Delete</a>
     </td>
   </tr>

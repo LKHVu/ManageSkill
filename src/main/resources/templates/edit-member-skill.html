@@ -1,26 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Member Skill</title>
+  <title>Update Member Skill</title>
+  <link rel="stylesheet" type="text/css" href="/edit-member-skill.css">
 </head>
 <body>
-<h2>Edit Member Skill</h2>
-<form action="/member-skills/update/{id}" method="post" th:object="${memberSkill}">
+<header>
+  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+  <nav>
+    <ul>
+      <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/teams">Quản lý Nhóm</a></li>
+        <li><a href="/members">Quản lý người dùng</a></li>
+        <li><a href="/teammembers">Quản lý thành viên nhóm</a></li>
+        <li><a href="/skill-groups">Quản lý Nhóm Kỹ năng</a></li>
+        <li><a href="/skills">Quản lý Kỹ năng</a></li>
+        <li><a href="/member-skills">Quản lý Kỹ năng nhân viên </a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+      </div>
+    </ul>
+  </nav>
+</header>
+<h1>Update Member Skill</h1>
+<form th:action="@{/member-skills/update}" th:object="${memberSkill}" method="post">
   <input type="hidden" th:field="*{memberSkillId}">
-
-  <label for="username">User:</label>
-  <input type="text" id="username" name="username" th:field="*{user.username}">
-
-  <label for="skillId">Skill:</label>
-  <input type="text" id="skillId" name="skillId" th:field="*{skill.skillId}">
-
-  <label for="proficiencyLevel">Proficiency Level:</label>
-  <input type="text" id="proficiencyLevel" name="proficiencyLevel" th:field="*{proficiencyLevel}">
+  <div>
+    <label for="username">User:</label>
+    <select id="username" name="username" th:field="*{user.username}">
+      <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}">User1</option>
+    </select>
+  </div>
+  <div>
+    <label for="skill">Skill:</label>
+    <select id="skill" name="skill" th:field="*{skill.skillId}">
+      <option th:each="skill : ${skills}" th:value="${skill.skillId}" th:text="${skill.skillName}">Skill1</option>
+    </select>
+  </div>
+  <div>
+    <label for="proficiencyLevel">Proficiency Level:</label>
+    <input type="number" id="proficiencyLevel" name="proficiencyLevel" th:field="*{proficiencyLevel}" min="1" max="5">
+  </div>
 
   <button type="submit">Update</button>
+  <button href="/member-skills">Back To Member Skill Page</button>
 </form>
-<a href="/member-skills">Back to Member Skills</a>
 </body>
 </html>
