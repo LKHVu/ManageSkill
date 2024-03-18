@@ -24,9 +24,23 @@
     </nav>
 </header>
 <h2>Teams Management</h2>
-<div class="button-container">
-    <button class="team-button" onclick="window.location.href='/teams/create'">Create Team</button>
-    <button class="team-button" onclick="window.location.href='/teams/view'">list Team</button>
-</div>
+
+<table class="team-table">
+    <tr>
+        <th>Team Name</th>
+        <th>Action</th>
+    </tr>
+    <!-- Duyệt qua danh sách team và hiển thị thông tin của mỗi team -->
+    <tr th:each="team : ${teams}">
+        <td th:text="${team.teamName}"></td>
+        <td>
+            <!-- Nút sửa -->
+            <a th:href="@{'/teams/view/edit/' + ${team.teamId}}">Edit</a>
+            <!-- Nút xóa -->
+            <a th:href="@{'/teams/delete/' + ${team.teamId}}">Delete</a>
+        </td>
+    </tr>
+</table>
+<button> <a href="/teams/create">Create Team </a></button>
 </body>
 </html>

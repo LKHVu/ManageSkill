@@ -15,11 +15,6 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    @GetMapping("/teams")
-    public String showTeamsPage(Model model) {
-        return "teams";
-    }
-
     @GetMapping("/teams/create")
     public String showCreateTeamForm(Model model) {
         model.addAttribute("team", new Team());
@@ -30,11 +25,11 @@ public class TeamController {
         teamService.createTeam(team);
         return "redirect:/teams";
     }
-    @GetMapping("/teams/view")
+    @GetMapping("/teams")
     public String showTeams(Model model) {
         List<Team> teams = teamService.getAllTeams();
         model.addAttribute("teams", teams);
-        return "view-teams"; // Trả về trang hiển thị danh sách team
+        return "teams"; // Trả về trang hiển thị danh sách team
     }
 
     @GetMapping("/teams/view/edit/{id}")

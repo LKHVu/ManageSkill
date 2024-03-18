@@ -19,16 +19,12 @@ public class TeammemberController {
     private TeammemberService teammemberService;
     @Autowired
     private TeamService teamService;
-    @GetMapping("/teammembers")
-    public String showTeammembersPage(Model model) {
-        return "teammembers";
-    }
 
-    @GetMapping("/teammembers/view")
+    @GetMapping("/teammembers")
     public String showViewTeammembersPage(Model model) {
         List<Teammember> teammembers = teammemberService.getAllTeammembers();
         model.addAttribute("teammembers", teammembers);
-        return "view-teammembers";
+        return "teammembers";
     }
     @Autowired
     private UserService userService;
