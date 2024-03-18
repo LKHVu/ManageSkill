@@ -26,8 +26,27 @@
 </header>
 <div>
     <a href="/members/add-user">Thêm Người dùng</a>
-    <a href="/members/edit">Chỉnh sửa Thông tin</a>
-    <a href="/members/delete">Xóa Người dùng</a>
+    <!-- Add a table to display users -->
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the list of users -->
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <!-- Add action links for update and delete -->
+            <td>
+                <a th:href="@{/members/update-user/{username}(username=${user.username})}">Update</a>
+                <a th:href="@{/members/delete-user/{username}(username=${user.username})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 </body>
 </html>

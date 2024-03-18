@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/members")
@@ -27,7 +28,12 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder; // Autowire PasswordEncoder
-
+    @GetMapping
+    public String showMembersPage(Model model) {
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "members"; // Assuming the HTML file is named members.html
+    }
     @GetMapping("/add-user")
     public String showAddForm(Model model) {
         model.addAttribute("user", new User());
@@ -81,5 +87,42 @@ public class UserController {
         }
 
         return "redirect:/members/add-user";
+    }
+
+    @GetMapping("/update-user/{username}")
+    public String showUpdateForm(@PathVariable("username") String username, Model model) {
+        User user = userRepository.findByUsername(username);
+        model.addAttribute("user", user);
+        return "update-user";
+    }
+
+    @PostMapping("/update-user/{username}")
+    public String updateUser(@PathVariable("username") String username, @ModelAttribute("user") @Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "update-user";
+        }
+
+        try {
+            // Update user in the database
+            userRepository.save(user);
+            redirectAttributes.addFlashAttribute("message", "User has been updated successfully!");
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("error", "Failed to update user. Please try again.");
+        }
+
+        return "redirect:/members";
+    }
+
+    @GetMapping("/delete-user/{username}")
+    public String deleteUser(@PathVariable("username") String username, RedirectAttributes redirectAttributes) {
+        try {
+            // Delete user from the database
+            userRepository.deleteById(username);
+            redirectAttributes.addFlashAttribute("message", "User has been deleted successfully!");
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("error", "Failed to delete user. Please try again.");
+        }
+
+        return "redirect:/members";
     }
 }
