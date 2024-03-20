@@ -13,7 +13,6 @@
       <div th:if="${#authorization.expression('hasRole(''ROLE_MEMBERS'')')}">
         <li><a href="/">Dashboard</a></li>
         <li><a href="/profile">Hồ sơ cá nhân</a></li>
-        <li><a href="/teams">Nhóm</a></li>
         <li><a href="/skills">Kỹ năng</a></li>
         <li><a href="/logout">Đăng xuất</a></li>
       </div>
@@ -25,6 +24,16 @@
   <p>Username: <span th:text="${user.username}"></span></p>
   <p>Email: <span th:text="${user.email}"></span></p>
   <p>Phone: <span th:text="${user.phone}"></span></p>
+
+  <!-- Display user's teams -->
+  <h2>User's Teams</h2>
+  <ul>
+    <li th:each="teamMember : ${userTeams}">
+      <span th:text="${teamMember.team.teamName}"></span>
+<!--      - <span th:text="${teamMember.user.username}"></span>-->
+    </li>
+  </ul>
+
   <!-- Button to toggle update form -->
   <button id="showUpdateFormBtn">Update Profile</button>
 

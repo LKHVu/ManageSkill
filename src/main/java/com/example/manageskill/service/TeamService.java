@@ -1,7 +1,9 @@
 package com.example.manageskill.service;
 
 import com.example.manageskill.model.Team;
+import com.example.manageskill.model.Teammember;
 import com.example.manageskill.repository.TeamRepository;
+import com.example.manageskill.repository.TeammemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,11 @@ public class TeamService {
 
     @Autowired
     private TeamRepository teamRepository;
-
+    @Autowired
+    private TeammemberRepository teamMemberRepository;
+    public List<Teammember> getTeamsByUsername(String username) {
+        return teamMemberRepository.findByUserUsername(username);
+    }
     public void createTeam(Team team) {
         teamRepository.save(team);
     }

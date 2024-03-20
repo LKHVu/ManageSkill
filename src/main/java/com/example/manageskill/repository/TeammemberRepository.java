@@ -12,4 +12,5 @@ public interface TeammemberRepository extends JpaRepository<Teammember, Long> {
 
     @Query("SELECT DISTINCT t.user.username FROM Teammember t WHERE t.team IS NOT NULL")
     List<String> findUsersWithTeam();
+    List<Teammember> findByUserUsername(String username);
 }
