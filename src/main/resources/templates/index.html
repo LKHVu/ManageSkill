@@ -24,12 +24,18 @@
         </ul>
     </nav>
 </header>
-<div class="container">
-    <div class="content">
-            <li><a href="/userskill">tự xem skill của mình</a></li>
-            <li><a href="/userteam">xem thành viên trong team</a></li>
-            <li><a href="/logout">Đăng xuất</a></li>
-    </div>
-</div>
+<header>
+    <nav>
+        <ul>
+            <div th:if="${#authorization.expression('hasRole(''ROLE_MEMBERS'')')}">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/profile">Hồ sơ cá nhân</a></li>
+                <li><a href="/teams">Nhóm</a></li>
+                <li><a href="/skills">Kỹ năng</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </div>
+        </ul>
+    </nav>
+</header>
 </body>
 </html>

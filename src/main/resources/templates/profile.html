@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <link rel="stylesheet" type="text/css" href="/profile.css">
+</head>
+<body>
+<header>
+  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+  <nav>
+    <ul>
+      <div th:if="${#authorization.expression('hasRole(''ROLE_MEMBERS'')')}">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/profile">Hồ sơ cá nhân</a></li>
+        <li><a href="/teams">Nhóm</a></li>
+        <li><a href="/skills">Kỹ năng</a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+      </div>
+    </ul>
+  </nav>
+</header>
+<div class="container">
+  <h1>User Profile</h1>
+  <p>Username: <span th:text="${user.username}"></span></p>
+  <p>Email: <span th:text="${user.email}"></span></p>
+  <p>Phone: <span th:text="${user.phone}"></span></p>
+  <!-- Button to toggle update form -->
+  <button id="showUpdateFormBtn">Update Profile</button>
+
+  <!-- Update form (initially hidden) -->
+  <form id="updateForm" th:action="@{/profile/update}" th:object="${user}" method="post" style="display: none;">
+    <input type="hidden" th:field="*{username}" /> <!-- Username is hidden and will not be updated -->
+    <p>Username: <span th:text="${user.username}"></span></p>
+    <p>Email: <input type="text" th:field="*{email}" /></p>
+    <p>Phone: <input type="text" th:field="*{phone}" /></p>
+    <button type="submit">Update</button>
+  </form>
+</div>
+
+<script>
+  // JavaScript to toggle the visibility of the update form
+  document.getElementById('showUpdateFormBtn').addEventListener('click', function() {
+    var updateForm = document.getElementById('updateForm');
+    if (updateForm.style.display === 'none') {
+      updateForm.style.display = 'block';
+    } else {
+      updateForm.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>
