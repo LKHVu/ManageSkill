@@ -16,7 +16,37 @@
     <label for="password">Password</label>
     <input type="password" id="password" name="password" placeholder="password" required>
   </div>
-  <button type="submit">Login</button>
+  <button type="submit" id="submitButton">Đăng nhập</button>
 </form>
+
+<script>
+  const submitButton = document.getElementById("submitButton");
+
+  submitButton.addEventListener("click", () => {
+    submitButton.classList.add("ripple");
+    setTimeout(() => {
+      submitButton.classList.remove("ripple");
+    }, 1000);
+    // Tạo các bong bóng
+    for (let i = 0; i < 10; i++) {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.top = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${Math.random() * 5 + 1}s`;
+
+      const message = document.createElement("span");
+      message.textContent = "welcome!";
+      bubble.appendChild(message);
+
+      document.body.appendChild(bubble);
+
+      setTimeout(() => {
+        bubble.remove();
+      }, 2000);
+    }
+  });
+
+</script>
 </body>
 </html>
