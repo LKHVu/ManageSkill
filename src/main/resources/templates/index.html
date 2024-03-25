@@ -44,14 +44,14 @@
         <canvas id="userChart1" width="400" height="200"></canvas>
     </div>
     <div class="chart-item">
-        <h1>User Chart </h1>
+        <h1>Team Chart </h1>
         <p>Total Teams: [[${teamCount}]]</p>
         <canvas id="teamChart" width="400" height="200"></canvas>
     </div>
     <div class="chart-item">
-        <h1>Skill Chart </h1>
-        <p>Total Users: [[${userCount}]]</p>
-        <canvas id="userChart3" width="400" height="200"></canvas>
+        <h1>Teammember Chart </h1>
+        <p>Total Teams: [[${teamCount}]]</p>
+        <canvas id="teamMemberChart" width="400" height="200"></canvas>
     </div>
 </div>
 
@@ -59,18 +59,18 @@
 <script>
     // Lấy số lượng người dùng từ model
     var userCount = [[${userCount}]] ;
-
+    var colors = [];
+    colors.push(getRandomColor());
     // Tạo biểu đồ
     var ctx = document.getElementById('userChart1').getContext('2d');
-    var myChart = new Chart(ctx, {
+    var userChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ["Total Users"],
             datasets: [{
                 label: 'Number of Users',
                 data: [userCount], // Số lượng người dùng từ model
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: colors,
                 borderWidth: 1
             }]
         },
@@ -84,10 +84,19 @@
             }
         }
     });
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 </script>
 <script>
     var teamCount = [[${teamCount}]];
-
+    var colors = [];
+    colors.push(getRandomColor());
     var teamCtx = document.getElementById('teamChart').getContext('2d');
     var teamChart = new Chart(teamCtx, {
         type: 'bar',
@@ -96,8 +105,7 @@
             datasets: [{
                 label: 'Number of Teams',
                 data: [teamCount],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: colors  ,
                 borderWidth: 1
             }]
         },
@@ -111,8 +119,67 @@
             }
         }
     });
-
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 </script>
 
+<script th:inline="javascript">
+    // tac dung cua th:inline="javascript". Thymeleaf sẽ thay thế [[${teamsWithMemberCount}]] bằng giá trị của someValue từ controller
+
+    var teamsWithMemberCount = [[${teamsWithMemberCount}]];
+    var teamNames = [];
+    var memberCounts = [];
+    var colors = [];
+
+    // Ánh xạ mỗi cột với một màu trong mảng colors
+    teamsWithMemberCount.forEach(function(teamData, index) {
+        teamNames.push(teamData[0]);
+        memberCounts.push(teamData[1]);
+        colors.push(getRandomColor()); // Tạo một màu ngẫu nhiên cho mỗi cột
+    });
+
+    // Tạo dữ liệu cho biểu đồ
+    var chartData = {
+        labels: teamNames,
+        datasets: [{
+            label: teamNames,
+            data: memberCounts,
+            backgroundColor: colors,
+            borderWidth: 1
+        }]
+    };
+
+
+    var ctx = document.getElementById('teamMemberChart').getContext('2d');
+    var teamMemberChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+</script>
 </body>
 </html>

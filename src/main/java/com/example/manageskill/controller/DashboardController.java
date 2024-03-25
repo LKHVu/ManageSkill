@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class DashboardController {
 
@@ -24,7 +26,15 @@ public class DashboardController {
         model.addAttribute("userCount", userCount);
         long teamCount = teamService.getTeamCount();
         model.addAttribute("teamCount", teamCount);
-        // Trả về trang HTML
+
+        List<Object[]> teamsWithMemberCount = teamService.findAllTeamsWithMemberCount();
+        model.addAttribute("teamsWithMemberCount", teamsWithMemberCount);
+//        for (Object[] teamData : teamsWithMemberCount) {
+//            String teamName = (String) teamData[0];
+//            Long memberCount = (Long) teamData[1];
+//            System.out.println( teamName + ", Member Count: " + memberCount);
+//        }
+
         return "index";
     }
 }
