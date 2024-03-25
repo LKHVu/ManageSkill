@@ -41,4 +41,8 @@ public class TeamService {
     public void deleteTeam(Long id) {
         teamRepository.deleteById(id);
     }
+    public long getTeamCount() {
+        // Truy vấn số lượng nhóm từ cơ sở dữ liệu
+        return teamRepository.count();
+    }
 }

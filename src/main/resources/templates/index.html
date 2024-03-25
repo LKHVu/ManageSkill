@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Ma trận Kỹ năng Nhóm</title>
     <link rel="stylesheet" type="text/css" href="/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <header>
@@ -30,12 +31,88 @@
             <div th:if="${#authorization.expression('hasRole(''ROLE_MEMBERS'')')}">
                 <li><a href="/">Dashboard</a></li>
                 <li><a href="/profile">Hồ sơ cá nhân</a></li>
-                <li><a href="/teams">Nhóm</a></li>
                 <li><a href="/skills">Kỹ năng</a></li>
                 <li><a href="/logout">Đăng xuất</a></li>
             </div>
         </ul>
     </nav>
 </header>
+<div class="chart-container">
+    <div class="chart-item">
+        <h1>User Chart </h1>
+        <p>Total Users: [[${userCount}]]</p>
+        <canvas id="userChart1" width="400" height="200"></canvas>
+    </div>
+    <div class="chart-item">
+        <h1>User Chart </h1>
+        <p>Total Teams: [[${teamCount}]]</p>
+        <canvas id="teamChart" width="400" height="200"></canvas>
+    </div>
+    <div class="chart-item">
+        <h1>Skill Chart </h1>
+        <p>Total Users: [[${userCount}]]</p>
+        <canvas id="userChart3" width="400" height="200"></canvas>
+    </div>
+</div>
+
+
+<script>
+    // Lấy số lượng người dùng từ model
+    var userCount = [[${userCount}]] ;
+
+    // Tạo biểu đồ
+    var ctx = document.getElementById('userChart1').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Total Users"],
+            datasets: [{
+                label: 'Number of Users',
+                data: [userCount], // Số lượng người dùng từ model
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+<script>
+    var teamCount = [[${teamCount}]];
+
+    var teamCtx = document.getElementById('teamChart').getContext('2d');
+    var teamChart = new Chart(teamCtx, {
+        type: 'bar',
+        data: {
+            labels: ["Total Teams"],
+            datasets: [{
+                label: 'Number of Teams',
+                data: [teamCount],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>
+
 </body>
 </html>

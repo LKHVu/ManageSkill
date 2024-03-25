@@ -77,3 +77,19 @@ header a:hover {
     color: rgb(0, 0, 0);
     background-color: transparent;
 }
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Cho phép các biểu đồ xuống dòng khi không đủ không gian */
+}
+
+.chart-item {
+    flex-basis: calc(33.33% - 20px); /* Đặt kích thước của mỗi biểu đồ */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%; /* Đảm bảo biểu đồ lấp đầy phần tử cha */
+}

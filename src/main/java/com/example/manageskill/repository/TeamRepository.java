@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TeamRepository extends CrudRepository<Team, Long> {
-    // Bạn có thể thêm các phương thức tùy chỉnh nếu cần
+    long count();
 }

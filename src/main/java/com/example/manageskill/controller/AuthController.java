@@ -27,10 +27,10 @@ public class AuthController {
         }
     }*/
 
-    @RequestMapping("/")
-    public String home() {
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String home() {
+//        return "index";
+//    }
 
 
     @RequestMapping("/login")
