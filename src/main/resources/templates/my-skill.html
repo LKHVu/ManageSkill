@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>My Skills</title>
+  <link rel="stylesheet" type="text/css" href="/my-skill.css">
+</head>
+<body>
+<header>
+  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+  <nav>
+    <ul>
+      <div th:if="${#authorization.expression('hasRole(''ROLE_MEMBERS'')')}">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/profile">Hồ sơ cá nhân</a></li>
+        <li><a href="/my-skill">Kỹ năng</a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+      </div>
+    </ul>
+  </nav>
+</header>
+<table>
+  <thead>
+  <tr>
+    <th>Skill Name</th>
+    <th>Skill Group Name</th>
+    <th>Proficiency Level</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="skill : ${mySkills}">
+    <td th:text="${skill[0]}"></td>
+    <td th:text="${skill[1]}"></td>
+    <td th:text="${skill[2]}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

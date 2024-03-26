@@ -39,4 +39,8 @@ public class SkillService {
     public void deleteSkill(Long id) {
         skillRepository.deleteById(id);
     }
+
+    public List<Object[]> getMySkills(String username) {
+        return skillRepository.findMySkillsByUsername(username);
+    }
 }
