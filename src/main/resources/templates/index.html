@@ -8,6 +8,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+<!-- Kiểm tra nếu không có người dùng đăng nhập, chuyển hướng đến trang đăng nhập -->
+<div th:if="${#request.userPrincipal == null}">
+    <script th:inline="javascript">
+        window.location.href = '/login';
+    </script>
+</div>
 <header>
     <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
     <nav>

@@ -18,6 +18,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 /*    @Autowired
     private UserRepository userRepository;*/
+@Autowired
+private CustomAuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -90,9 +92,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/login")
+                .and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 
-        http
-                .rememberMe().tokenValiditySeconds(60 * 60 * 24 * 1); // 1 day
+//        http
+//                .rememberMe().tokenValiditySeconds(60 * 60 * 24 * 1); // 1 day
     }
 }

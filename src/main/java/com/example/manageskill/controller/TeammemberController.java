@@ -74,7 +74,7 @@ public class TeammemberController {
         @GetMapping("/teammembers/delete/{id}")
         public String deleteTeamMember(@PathVariable("id") Long id) {
             teammemberService.deleteTeamMember(id);
-            return "redirect:/teammembers/view"; // Chuyển hướng người dùng đến trang danh sách team members sau khi xóa thành công
+            return "redirect:/teammembers"; // Chuyển hướng người dùng đến trang danh sách team members sau khi xóa thành công
         }
     }
 
