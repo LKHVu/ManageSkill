@@ -26,10 +26,12 @@ public class SkillGroupService {
     }
 
     public void updateSkillGroup(SkillGroup skillGroup) {
+
         skillGroupRepository.save(skillGroup);
     }
 
     public void deleteSkillGroup(Long id) {
+
         skillGroupRepository.deleteById(id);
     }
 }

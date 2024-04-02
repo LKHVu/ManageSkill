@@ -1,10 +1,13 @@
 package com.example.manageskill.service;
 
+import com.example.manageskill.model.MemberSkill;
 import com.example.manageskill.model.Skill;
+import com.example.manageskill.repository.MemberSkillRepository;
 import com.example.manageskill.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,9 +38,13 @@ public class SkillService {
     public void updateSkill(Skill skill) {
         skillRepository.save(skill);
     }
-
-    public void deleteSkill(Long id) {
-        skillRepository.deleteById(id);
+    @Autowired
+    private MemberSkillRepository memberSkillRepository;
+    @Transactional
+    public void deleteSkill(Long skillId) {
+        List<MemberSkill> memberSkills = memberSkillRepository.findAllBySkillId(skillId);
+        memberSkillRepository.deleteAll(memberSkills);
+        skillRepository.deleteById(skillId);
     }
 
     public List<Object[]> getMySkills(String username) {

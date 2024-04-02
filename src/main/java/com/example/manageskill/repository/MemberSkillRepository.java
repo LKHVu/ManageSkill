@@ -13,4 +13,6 @@ public interface MemberSkillRepository extends JpaRepository<MemberSkill, Long> 
     // Truy vấn danh sách người dùng đã có trong MemberSkill
     @Query("SELECT DISTINCT m.user FROM MemberSkill m")
     List<User> findAllUsers();
+    @Query("SELECT m FROM MemberSkill m WHERE m.skill.skillId = :skillId")
+    List<MemberSkill> findAllBySkillId(Long skillId);
 }
