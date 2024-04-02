@@ -38,8 +38,13 @@ public class TeamService {
             teamRepository.save(team);
         }
     }
-    public void deleteTeam(Long id) {
-        teamRepository.deleteById(id);
+    @Autowired
+    private TeammemberRepository teammemberRepository;
+    public void deleteTeam(Long teamId) {
+        Team team = teamRepository.findById(teamId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid team Id:" + teamId));
+        teammemberRepository.deleteByTeam(team); // Xóa tất cả các Teammember của Team
+        teamRepository.delete(team); // Xóa Team
     }
 
     public long getTeamCount() {

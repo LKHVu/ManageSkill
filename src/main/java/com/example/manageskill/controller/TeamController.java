@@ -42,12 +42,12 @@ public class TeamController {
     @PostMapping("/teams/update")
     public String updateTeam(@RequestParam("id") Long id, @RequestParam("teamName") String teamName) {
         teamService.updateTeam(id, teamName);
-        return "redirect:/teams/view"; // Chuyển hướng người dùng đến trang danh sách teams sau khi chỉnh sửa thành công
+        return "redirect:/teams"; // Chuyển hướng người dùng đến trang danh sách teams sau khi chỉnh sửa thành công
     }
 
     @GetMapping("/teams/delete/{id}")
     public String deleteTeam(@PathVariable("id") Long id) {
         teamService.deleteTeam(id);
-        return "redirect:/teams/view"; // Chuyển hướng người dùng đến trang danh sách teams sau khi xóa thành công
+        return "redirect:/teams"; // Chuyển hướng người dùng đến trang danh sách teams sau khi xóa thành công
     }
 }
