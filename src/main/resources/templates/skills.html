@@ -28,8 +28,9 @@
 <table>
   <thead>
   <tr>
-    <th>ID</th>
+    <th>skillId</th>
     <th>Name</th>
+<!--    <th>skillGroupId</th>-->
     <th>Actions</th>
   </tr>
   </thead>
@@ -37,6 +38,7 @@
   <tr th:each="skill : ${skills}">
     <td th:text="${skill.skillId}"></td>
     <td th:text="${skill.skillName}"></td>
+<!--    <td th:text="${skill.skillGroup}"></td>-->
     <td>
       <a th:href="@{/skills/edit/{id}(id=${skill.skillId})}">Edit</a>
       <a th:href="@{/skills/delete/{id}(id=${skill.skillId})}">Delete</a>

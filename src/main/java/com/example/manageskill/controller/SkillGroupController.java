@@ -1,9 +1,7 @@
 package com.example.manageskill.controller;
 
 import com.example.manageskill.model.SkillGroup;
-import com.example.manageskill.service.MemberSkillService;
 import com.example.manageskill.service.SkillGroupService;
-import com.example.manageskill.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +17,7 @@ public class SkillGroupController {
     @Autowired
     private SkillGroupService skillGroupService;
 
-    @GetMapping
+    @GetMapping("")
     public String showSkillGroupsPage(Model model) {
         List<SkillGroup> skillGroups = skillGroupService.getAllSkillGroups();
         model.addAttribute("skillGroups", skillGroups);
@@ -51,17 +49,8 @@ public class SkillGroupController {
         return "redirect:/skill-groups";
     }
 
-
-    @Autowired
-    private SkillService skillService;
-
-    @Autowired
-    private MemberSkillService memberSkillService;
     @GetMapping("/delete/{id}")
     public String deleteSkillGroup(@PathVariable Long id) {
-        skillService.deleteSkill(id);
-        // Xóa tất cả các MemberSkill liên quan đến các kỹ năng thuộc nhóm kỹ năng
-        memberSkillService.deleteMemberSkill(id);
         skillGroupService.deleteSkillGroup(id);
         return "redirect:/skill-groups";
     }

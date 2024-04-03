@@ -21,28 +21,26 @@ public class MemberSkillController {
     private MemberSkillService memberSkillService;
 
     @Autowired
-    private UserService userService; // Giả sử bạn có một UserService để truy vấn thông tin về người dùng
+    private UserService userService;
 
     @Autowired
-    private SkillService skillService; // Giả sử bạn có một SkillService để truy vấn thông tin về kỹ năng
+    private SkillService skillService;
 
     @GetMapping
     public String showMemberSkillsPage(Model model) {
         List<MemberSkill> memberSkills = memberSkillService.getAllMemberSkills();
         model.addAttribute("memberSkills", memberSkills);
-        return "member-skills"; // Trả về tên của view để hiển thị danh sách kỹ năng của thành viên
+        return "member-skills";
     }
-    @GetMapping("/create") // Đường dẫn cụ thể cho trang tạo mới
+    @GetMapping("/create")
     public String showCreateMemberSkillForm(Model model) {
-        // Lấy danh sách người dùng chưa có trong MemberSkill
-        List<User> usersNotInMemberSkill = userService.getUsersNotInMemberSkill();
 
-        // Tạo một đối tượng MemberSkill mới
+        List<User> users = userService.getAllUsers();
         MemberSkill memberSkill = new MemberSkill();
 
         // Thêm danh sách người dùng vào model để hiển thị trong form
         model.addAttribute("memberSkill", memberSkill);
-        model.addAttribute("users", usersNotInMemberSkill);
+        model.addAttribute("users", users);
         model.addAttribute("skills", skillService.getAllSkills());
 
         return "create-member-skill";
