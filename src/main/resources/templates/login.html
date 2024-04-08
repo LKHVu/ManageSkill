@@ -15,6 +15,7 @@
   <div>
     <label for="password">Password</label>
     <input type="password" id="password" name="password" placeholder="password" required>
+    <p th:if="${param.error}" class="error-message">Incorrect username or password</p>
   </div>
   <div>
     <input type="checkbox" id="rememberMe" name="rememberMe">
