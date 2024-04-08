@@ -54,21 +54,25 @@ public class TeammemberController {
         return "redirect:/teammembers";
     }
 
-    @GetMapping("/teammembers/view/edit/{id}")
-    public String showEditTeammemberForm(@PathVariable Long id, Model model) {
-        Teammember teamMember = teammemberService.getTeammemberById(id);
+    @GetMapping("/teammembers/edit/{id}")
+    public String showUpdateTeammemberForm(@PathVariable("id") Long id, Model model) {
+        Teammember teammember = teammemberService.getTeammemberById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid team member Id:" + id));
+
+        List<User> users = userService.getAllUsers();
         List<Team> teams = teamService.getAllTeams();
-        List<String> usersWithoutTeam = userService.findUsersWithoutTeam();
-        model.addAttribute("teamMember", teamMember);
+
+        model.addAttribute("teammember", teammember);
+        model.addAttribute("users", users);
         model.addAttribute("teams", teams);
-        model.addAttribute("users", usersWithoutTeam);
-        return "edit-team-member";
+
+        return "edit-team-member"; // Thymeleaf template name
     }
 
-    @PostMapping("/teammembers/update")
-    public String updateTeammember(@ModelAttribute Teammember teammember) {
-        teammemberService.updateTeammember(teammember);
-        return "redirect:/teammembers/view";
+    @PostMapping("/teammembers/edit")
+    public String updateTeammember(@ModelAttribute("teammember") Teammember teammember) {
+        teammemberService.save(teammember);
+        return "redirect:/teammembers";
     }
         // Endpoint để xóa team member
         @GetMapping("/teammembers/delete/{id}")

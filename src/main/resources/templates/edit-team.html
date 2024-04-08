@@ -24,14 +24,14 @@
   </nav>
 </header>
 <h2>Edit Team</h2>
-<form action="/teams/update" method="post">
+<form id="edit-team-form"  action="/teams/update" method="post">
   <input type="hidden" name="id" th:value="${team.teamId}">
   <label for="teamName">Team Name:</label>
   <input type="text" id="teamName" name="teamName" th:value="${team.teamName}">
   <button type="submit">Save</button>
 </form>
-<a href="/teams" >Back to List Teams            </a>
+<a href="/teams" >Back to List Teams </a>
 
-<a href="/teams/view" >Back to Teams Management</a>
+
 </body>
 </html>

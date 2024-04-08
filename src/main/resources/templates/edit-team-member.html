@@ -23,28 +23,28 @@
     </ul>
   </nav>
 </header>
-<h2>Edit Team Member</h2>
-<form action="/teammembers/update" method="post">
-  <input type="hidden" name="memberId" th:value="${teamMember.memberId}" />
-
-  <label for="team">Team:</label>
-  <select id="team" name="teamId">
-    <!-- Loop through teams and display options -->
-    <option th:each="team : ${teams}" th:value="${team.teamId}"
-            th:selected="${team.teamId eq teamMember.team.teamId}">
-      <!-- Display team name as option -->
-      <span th:text="${team.teamName}"></span>
-    </option>
-  </select><br><br>
-
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username" th:value="${teamMember.user.username}" readonly /><br><br>
-
-  <!-- Other fields for editing, if any -->
+<h2>Update Teammember</h2>
+<form th:action="@{/teammembers/edit}" th:object="${teammember}" method="post">
+  <input type="hidden" th:field="*{memberId}"/>
+  <div>
+    <label for="team">Team:</label>
+    <select id="team" th:field="*{team.teamId}">
+      <option th:each="t : ${teams}" th:value="${t.teamId}" th:text="${t.teamName}"></option>
+    </select>
+  </div>
+  <div>
+    <label for="username">Username:</label>
+    <select id="username" th:field="*{user.username}">
+      <option th:each="u : ${users}" th:value="${u.username}" th:text="${u.username}"></option>
+    </select>
+  </div>
+<!--  <div>-->
+<!--    <label for="username">Username:</label>-->
+<!--    <input type="text" id="username" th:value="*{user.username}" readonly="readonly"/>-->
+<!--  </div>-->
 
   <button type="submit">Update</button>
 </form>
-<a href="/teammembers" >Back to Teams Member Management</a>
-<a href="/teammembers/view" >Back to View Team Members</a>
+<button class="back-button" onclick="location.href='/teammembers'">Back to Team Member Management</button>
 </body>
 </html>

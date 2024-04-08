@@ -63,3 +63,51 @@ header a:hover {
     color: rgb(17, 16, 16);
     background-color: transparent;
 }
+form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="hidden"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button[href] {
+    background-color: #369bf4;
+}
+
+button[href]:hover {
+    background-color: #164377;
+}
+
+button,
+button[href] {
+    width: 100%;
+}

@@ -63,3 +63,28 @@ header a:hover {
     color: rgb(17, 16, 16);
     background-color: transparent;
 }
+#edit-team-form {
+    /* Định kiểu cho form */
+    margin: 1rem auto;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-width: 500px;
+}
+
+#edit-team-form label {
+    /* Định kiểu cho label trong form */
+    font-weight: bold;
+}
+
+#edit-team-form input[type="text"] {
+    /* Định kiểu cho input text trong form */
+    width: 100%;
+}
+
+#edit-team-form button[type="submit"] {
+    /* Định kiểu cho button submit trong form */
+    background-color: #04a754;
+    color: white;
+    cursor: pointer;
+}

@@ -63,3 +63,60 @@ header a:hover {
     color: rgb(17, 16, 16);
     background-color: transparent;
 }
+.back-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.back-button:active {
+    background-color: #003366;
+}
+/* Basic styling */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+label {
+    flex: 1 0 auto;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    flex: 2 1 auto;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    flex: 1 0 auto;
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50; /* Green button color */
+    color: white;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    cursor: pointer; /* Indicate clickable element */
+}
+
+/* Styling for dropdown (optional) */
+select {
+    appearance: none; /* Remove default dropdown styling */
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center; /* Position the arrow */
+    padding-right: 2rem; /* Add space for the arrow */
+}
