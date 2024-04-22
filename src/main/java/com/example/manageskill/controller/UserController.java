@@ -5,6 +5,7 @@ import com.example.manageskill.model.User;
 import com.example.manageskill.model.UserRole;
 import com.example.manageskill.repository.UserRepository;
 import com.example.manageskill.repository.UserRoleRepository;
+import com.example.manageskill.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -112,17 +113,13 @@ public class UserController {
 
         return "redirect:/members";
     }
+    @Autowired
+    private UserService userService;
 
-    @GetMapping("/delete-user/{username}")
-    public String deleteUser(@PathVariable("username") String username, RedirectAttributes redirectAttributes) {
-        try {
-            // Delete user from the database
-            userRepository.deleteById(username);
-            redirectAttributes.addFlashAttribute("message", "User has been deleted successfully!");
-        } catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("error", "Failed to delete user. Please try again.");
-        }
-
-        return "redirect:/members";
+    @GetMapping("/delete/{username}")
+    public String deleteUser(@PathVariable String username, RedirectAttributes redirectAttributes) {
+        userService.deleteUserAssociations(username);
+        redirectAttributes.addFlashAttribute("message", "User deleted successfully");
+        return "redirect:/users";
     }
 }

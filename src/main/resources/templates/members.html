@@ -39,10 +39,10 @@
         <tr th:each="user : ${users}">
             <td th:text="${user.username}"></td>
             <!-- Add action links for update and delete -->
-            <td>
-                <a th:href="@{/members/update-user/{username}(username=${user.username})}">Update</a>
-                <a th:href="@{/members/delete-user/{username}(username=${user.username})}">Delete</a>
-            </td>
+<!--            <td>-->
+<!--                <a th:href="@{/members/update-user/{username}(username=${user.username})}">Update</a>-->
+<!--                <a th:href="@{'/members/delete/' + ${user.username}}" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>
@@ -50,6 +50,9 @@
             style="background-color: blue; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
         <a href="/members/add-user" style="color: white; text-decoration: none;">Thêm Người dùng</a>
     </button>
+    <div th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
 </div>
 </body>
 </html>

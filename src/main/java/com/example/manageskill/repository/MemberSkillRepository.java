@@ -5,6 +5,7 @@ import com.example.manageskill.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -21,4 +22,10 @@ public interface MemberSkillRepository extends JpaRepository<MemberSkill, Long> 
     @Transactional
     @Query("DELETE FROM MemberSkill ms WHERE ms.skill.skillId = :skillId")
     void deleteBySkillId(Long skillId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM MemberSkill ms WHERE ms.user.username = :username")
+    void deleteAllByUsername(@Param("username") String username);
 }
+

@@ -77,6 +77,7 @@ private CustomAuthenticationEntryPoint authenticationEntryPoint;
         http.authorizeRequests().antMatchers("/admin").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/teams/**").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/members/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/members/delete").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/list-teammembers/**").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/skill-groups/**").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/skills/**").hasRole("ADMIN");

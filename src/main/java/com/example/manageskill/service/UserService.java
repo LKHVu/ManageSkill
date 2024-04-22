@@ -4,9 +4,11 @@ import com.example.manageskill.model.User;
 import com.example.manageskill.repository.MemberSkillRepository;
 import com.example.manageskill.repository.TeammemberRepository;
 import com.example.manageskill.repository.UserRepository;
+import com.example.manageskill.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 @Service
 public class UserService {
@@ -15,7 +17,8 @@ public class UserService {
 
     @Autowired
     private TeammemberRepository teammemberRepository;
-
+    @Autowired
+    private UserRoleRepository userRoleRepository;
     public List<String> findUsersWithoutTeam() {
         List<String> allUsers = userRepository.findAllUsernames();
         List<String> usersWithTeam = teammemberRepository.findUsersWithTeam();
@@ -39,5 +42,11 @@ public class UserService {
         allUsers.removeAll(usersInMemberSkill); // Loại bỏ những người dùng đã có trong MemberSkill
         return allUsers;
     }
-
+    @Transactional
+    public void deleteUserAssociations(String username) {
+        memberSkillRepository.deleteAllByUsername(username);
+        teammemberRepository.deleteAllByUsername(username);
+        userRoleRepository.deleteByUsername(username);
+        userRepository.deleteByUsername(username);
+    }
 }
