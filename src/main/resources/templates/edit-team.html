@@ -6,28 +6,24 @@
   <link rel="stylesheet" type="text/css" href="/edit-team.css">
 </head>
 <body>
-<header>
-  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
-  <nav>
-    <ul>
-      <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-        <li><a href="/">Dashboard</a></li>
-        <li><a href="/teams">Quản lý Nhóm</a></li>
-        <li><a href="/members">Quản lý người dùng</a></li>
-        <li><a href="/teammembers">Quản lý thành viên nhóm</a></li>
-        <li><a href="/skill-groups">Quản lý Nhóm Kỹ năng</a></li>
-        <li><a href="/skills">Quản lý Kỹ năng</a></li>
-        <li><a href="/member-skills">Quản lý Kỹ năng nhân viên </a></li>
-        <li><a href="/logout">Đăng xuất</a></li>
-      </div>
-    </ul>
-  </nav>
-</header>
+<div th:replace="fragments/header :: appHeader('teams')"></div>
 <h2>Edit Team</h2>
-<form id="edit-team-form"  action="/teams/update" method="post">
+<form id="edit-team-form" action="/teams/update" method="post">
   <input type="hidden" name="id" th:value="${team.teamId}">
+
   <label for="teamName">Team Name:</label>
-  <input type="text" id="teamName" name="teamName" th:value="${team.teamName}">
+  <input type="text" id="teamName" name="teamName" th:value="${team.teamName}" required>
+
+  <label for="ownerUsername">Owner:</label>
+  <select id="ownerUsername" name="ownerUsername">
+    <option value="">-- No owner --</option>
+    <option th:each="u : ${users}"
+            th:value="${u.username}"
+            th:text="${u.username}"
+            th:selected="${team.owner != null} ? ${u.username} == ${team.owner.username} : false">
+    </option>
+  </select>
+
   <button type="submit">Save</button>
 </form>
 <a href="/teams" >Back to List Teams </a>

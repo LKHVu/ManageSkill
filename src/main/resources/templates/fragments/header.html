@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <!-- Reusable header. Pass `active` to highlight current menu -->
+  <header th:fragment="appHeader(active)">
+    <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
+    <nav>
+      <ul>
+        <!-- Admin navbar -->
+        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+          <li><a th:classappend="${active}=='dashboard' ? ' active' : ''" href="/">Dashboard</a></li>
+          <li><a th:classappend="${active}=='teams' ? ' active' : ''" href="/teams">Quản lý Nhóm</a></li>
+          <li><a th:classappend="${active}=='members' ? ' active' : ''" href="/members">Quản lý người dùng</a></li>
+          <li><a th:classappend="${active}=='skill-groups' ? ' active' : ''" href="/skill-groups">Quản lý Nhóm Kỹ năng</a></li>
+          <li><a th:classappend="${active}=='skills' ? ' active' : ''" href="/skills">Quản lý Kỹ năng</a></li>
+          <li><a th:classappend="${active}=='member-skills' ? ' active' : ''" href="/member-skills">Quản lý Kỹ năng nhân viên</a></li>
+          <li><a href="/logout">Đăng xuất</a></li>
+        </div>
+
+        <!-- Member navbar -->
+        <div th:if="${#authorization.expression('hasRole(''ROLE_MEMBERS'')')}">
+          <li><a th:classappend="${active}=='dashboard' ? ' active' : ''" href="/">Dashboard</a></li>
+          <li><a th:classappend="${active}=='profile' ? ' active' : ''" href="/profile">Hồ sơ cá nhân</a></li>
+          <li><a th:classappend="${active}=='my-skill' ? ' active' : ''" href="/my-skill">Kỹ năng</a></li>
+          <li><a th:classappend="${active}=='teams' ? ' active' : ''" href="/my-teams">Quản lý Nhóm</a></li>
+          <li><a href="/logout">Đăng xuất</a></li>
+        </div>
+      </ul>
+    </nav>
+  </header>
+</body>
+</html>

@@ -6,19 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/my-skill.css">
 </head>
 <body>
-<header>
-  <h1>Quản lý Ma trận Kỹ năng Nhóm</h1>
-  <nav>
-    <ul>
-      <div th:if="${#authorization.expression('hasRole(''ROLE_MEMBERS'')')}">
-        <li><a href="/">Dashboard</a></li>
-        <li><a href="/profile">Hồ sơ cá nhân</a></li>
-        <li><a href="/my-skill">Kỹ năng</a></li>
-        <li><a href="/logout">Đăng xuất</a></li>
-      </div>
-    </ul>
-  </nav>
-</header>
+<div th:replace="fragments/header :: appHeader('teams')"></div>
 <table>
   <thead>
   <tr>

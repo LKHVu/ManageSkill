@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/teams.css">
+        <title th:text="'Team: ' + ${team.teamName}">Team</title>
+    </head>
+    <body th:with="backUrl=${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? @{/teams} : @{/my-teams}">
+
+        <div th:replace="fragments/header :: appHeader('teams')"></div>
+
+        <h2 th:text="'Team: ' + ${team.teamName}">Team</h2>
+
+        <!-- Inline edit only for admins/owners -->
+        <form th:if="${canManage}" th:action="@{/teams/update}" method="post"
+              style="display:flex; gap:10px; align-items:center; margin:10px 0 16px;">
+            <input type="hidden" name="id" th:value="${team.teamId}" />
+            <label for="teamName"><strong>Team Name:</strong></label>
+            <input type="text" id="teamName" name="teamName" th:value="${team.teamName}"
+                   style="min-width:260px; padding:6px 8px; border:1px solid #ccc; border-radius:4px;" />
+            <label for="ownerUsername"><strong>Owner:</strong></label>
+            <select id="ownerUsername" name="ownerUsername"
+                    style="min-width:220px; padding:6px 8px; border:1px solid #ccc; border-radius:4px;">
+                <option value="">-- No owner --</option>
+                <option th:each="u : ${allUsers}"
+                        th:value="${u.username}"
+                        th:text="${u.username}"
+                        th:selected="${team.owner != null and u.username == team.owner.username}">
+                </option>
+            </select>
+            <button type="submit">Save Changes</button>
+            <a th:href="${backUrl}" style="margin-left:6px;">Back to Teams</a>
+        </form>
+
+        <!-- Read-only header for members (no manage rights) -->
+        <div th:if="${!canManage}" style="margin:10px 0 16px;">
+            <strong>Owner:</strong>
+            <span th:text="${team.owner != null ? team.owner.username : '—'}"></span>
+            &nbsp; | &nbsp;
+            <a th:href="${backUrl}">Back to Teams</a>
+        </div>
+
+        <h3>Members</h3>
+        <table class="team-table">
+            <tr>
+                <th style="width:80px;">#</th>
+                <th>Username</th>
+                <th style="width:160px;">Action</th>
+            </tr>
+            <tr th:each="m,iter : ${members}">
+                <td th:text="${iter.count}"></td>
+                <td>
+                    <span th:text="${m.user.username}"></span>
+                    <span th:if="${team.owner != null and m.user.username == team.owner.username}"
+                          style="font-size:12px; color:#555; margin-left:6px;">(Owner)</span>
+                </td>
+                <td>
+                    <!-- Only admins/owners can remove -->
+                    <form th:if="${canManage}"
+                          th:action="@{'/teams/' + ${team.teamId} + '/members/remove'}"
+                          method="post" style="display:inline;">
+                        <input type="hidden" name="username" th:value="${m.user.username}">
+                        <button type="submit">Remove</button>
+                    </form>
+                    <span th:if="${!canManage}">—</span>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(members)}">
+                <td colspan="3">No members yet.</td>
+            </tr>
+        </table>
+
+    <th:block th:if="${canManage}">
+        <h4 style="margin:16px 0 8px;">Add member</h4>
+        <form th:action="@{'/teams/' + ${team.teamId} + '/members/add'}"
+              method="post" style="display:flex; gap:10px; align-items:center;">
+            <select name="username" required
+                    style="min-width:240px; padding:6px 8px; border:1px solid #ccc; border-radius:4px;">
+                <option value="">-- Select User --</option>
+                <option th:each="u : ${allUsers}" th:value="${u.username}" th:text="${u.username}"></option>
+            </select>
+            <button type="submit">Add</button>
+        </form>
+    </th:block>
+
+    <!-- Optional read-only notice for members -->
+    <div th:if="${!canManage}" style="font-size:13px; color:#666;">
+        Bạn không có quyền chỉnh sửa nhóm này.
+    </div>
+
+</body>
+</html>

@@ -15,4 +15,6 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
             "JOIN Teammember tm ON t.teamId = tm.team.teamId\n" +
             "GROUP BY t.teamName")
     List<Object[]> findAllTeamsWithMemberCount();
+    boolean existsByOwnerUsername(String username);
+    List<Team> findByOwnerUsername(String username);
 }

@@ -9,6 +9,12 @@ public class Team {
     private Long teamId;
 
     private String teamName;
+
+    // NEW: owner of the team
+    @ManyToOne
+    @JoinColumn(name = "owner_username", referencedColumnName = "username")
+    private User owner;
+
     public Long getTeamId() {
         return teamId;
     }
@@ -25,7 +31,11 @@ public class Team {
         this.teamName = teamName;
     }
 
+    public User getOwner() {
+        return owner;
+    }
 
-
-    // Getters and setters
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 }
