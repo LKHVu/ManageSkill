@@ -12,12 +12,21 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
+
     @Query("SELECT u.username FROM User u")
     List<String> findAllUsernames();
+
     User findByUsername(String username);
+
+    // NEW: allow lookup by email
+    User findByEmail(String email);
+
+    // (Optional, but handy) single call for username OR email
+    @Query("SELECT u FROM User u WHERE u.username = :input OR u.email = :input")
+    User findByUsernameOrEmail(@Param("input") String input);
+
     @Modifying
     @Transactional
     @Query("DELETE FROM User u WHERE u.username = :username")
     void deleteByUsername(@Param("username") String username);
-
 }

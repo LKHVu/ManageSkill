@@ -1,57 +1,110 @@
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/login.css">
-  <title>Login</title>
-</head>
-<body>
-<form id="loginForm" th:action="@{/doLogin}" method="post">
-  <div>
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" placeholder="username" required>
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" placeholder="password" required>
-    <p th:if="${param.error}" class="error-message">Incorrect username or password</p>
-  </div>
-  <div>
-    <input type="checkbox" id="rememberMe" name="rememberMe">
-    <label for="rememberMe">remember Me</label>
-  </div>
-  <button type="submit" id="submitButton">Đăng nhập</button>
-</form>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Typography to match mock -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;1,300&family=Jua&family=Roboto:wght@600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/login.css" />
+        <title>DAS – SKILL MATRIX</title>
+    </head>
+    <body>
+        <!-- Loading overlay -->
+        <div id="loadingOverlay" class="overlay hidden" aria-hidden="true">
+            <div class="overlay-card" role="status" aria-live="polite">
+                <div class="dot-spinner">
+                    <div></div><div></div><div></div><div></div>
+                    <div></div><div></div><div></div><div></div>
+                </div>
+                <div class="overlay-text">Please wait in minutes...</div>
+            </div>
+        </div>
+        <main class="page">
+            <section class="card">
+                <h1 class="title">DAS – SKILL MATRIX</h1>
+                <p class="subtitle">Access your team’s skillset management</p>
 
-<script>
-  const submitButton = document.getElementById("submitButton");
+                <form id="loginForm" class="form" th:action="@{/doLogin}" method="post" novalidate>
+                    <div class="field">
+                        <label for="username" class="label">E‑mail</label>
+                        <input id="username" name="username" type="text"
+                               class="input underline"
+                               th:classappend="${param.uerr != null} ? ' invalid' : ''"
+                               placeholder="user@domain.com" autocomplete="username" required
+                               th:value="${param.username}" />
+                        <p th:if="${param.uerr != null}" class="error">We can’t find your account!</p>
+                    </div>
 
-  submitButton.addEventListener("click", () => {
-    submitButton.classList.add("ripple");
-    setTimeout(() => {
-      submitButton.classList.remove("ripple");
-    }, 1000);
-    // Tạo các bong bóng
-    for (let i = 0; i < 10; i++) {
-      const bubble = document.createElement("div");
-      bubble.classList.add("bubble");
-      bubble.style.left = `${Math.random() * 100}%`;
-      bubble.style.top = `${Math.random() * 100}%`;
-      bubble.style.animationDuration = `${Math.random() * 5 + 1}s`;
+                    <div class="field">
+                        <label for="password" class="label">Password</label>
+                        <div class="password-wrap">
+                            <input id="password" name="password" type="password"
+                                   class="input underline"
+                                   th:classappend="${param.perr != null} ? ' invalid' : ''"
+                                   placeholder="********" autocomplete="current-password" required />
+                            <button type="button" id="togglePwd" class="eye-btn" aria-label="Show password" aria-pressed="false">
+                                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <p th:if="${param.perr != null}" class="error">Wrong password!</p>
+                    </div>
 
-      const message = document.createElement("span");
-      message.textContent = "welcome!";
-      bubble.appendChild(message);
+                    <label class="remember">
+                        <input id="rememberMe" name="remember-me" type="checkbox" />
+                        <span>Remember me?</span>
+                    </label>
 
-      document.body.appendChild(bubble);
+                    <button id="submitButton" type="submit" class="btn">Login</button>
+                </form>
+            </section>
+        </main>
 
-      setTimeout(() => {
-        bubble.remove();
-      }, 2000);
-    }
-  });
+        <script>
+            const form = document.getElementById('loginForm');
+            const overlay = document.getElementById('loadingOverlay');
+            const btn = document.getElementById('submitButton');
+            const pwd = document.getElementById('password');
+            const togglePwd = document.getElementById('togglePwd');
+            if (togglePwd) {
+                togglePwd.addEventListener('click', () => {
+                    const show = pwd.type === 'password';
+                    pwd.type = show ? 'text' : 'password';
+                    togglePwd.classList.toggle('active', show);
+                    togglePwd.setAttribute('aria-pressed', String(show));
+                    togglePwd.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+                });
+            }
 
-</script>
-</body>
+            function showOverlay() {
+                overlay.classList.remove('hidden');
+                overlay.setAttribute('aria-hidden', 'false');
+                btn.disabled = true;
+            }
+            function hideOverlay() {
+                overlay.classList.add('hidden');
+                overlay.setAttribute('aria-hidden', 'true');
+                btn.disabled = false;
+            }
+
+            form.addEventListener('submit', (e) => {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    return;
+                }
+                showOverlay();
+            });
+
+            window.addEventListener('pageshow', () => {
+                hideOverlay();
+                const hasError = new URLSearchParams(location.search).has('error');
+                if (hasError) {
+                    document.getElementById('username').classList.add('invalid');
+                    document.getElementById('password').classList.add('invalid');
+                }
+            });
+        </script>
+    </body>
 </html>

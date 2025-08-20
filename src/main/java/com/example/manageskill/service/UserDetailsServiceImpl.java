@@ -17,13 +17,6 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-//    private final UserRepository userRepository;
-//
-//    @Autowired
-//    public UserDetailsServiceImpl(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
-
     @Autowired
     private UserRepository userRepository;
 
@@ -31,17 +24,40 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRoleRepository userRoleRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findById(username).orElse(null);
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + username + " không tồn tại user trong database");
+    public UserDetails loadUserByUsername(String input) throws UsernameNotFoundException {
+        // Accept either username OR email
+        User user = null;
+
+        // If you added findByUsernameOrEmail in the repository, this line will work:
+        try {
+            user = userRepository.findByUsernameOrEmail(input);
+        } catch (Exception ignore) {
+            // method may not exist; fall back to the two-step lookup below
         }
-        List<String> roles = userRoleRepository.findAllRoleByUser(username);
+
+        if (user == null) {
+            user = userRepository.findByUsername(input);
+        }
+        if (user == null) {
+            user = userRepository.findByEmail(input);
+        }
+        if (user == null) {
+            throw new UsernameNotFoundException("User \"" + input + "\" không tồn tại trong database");
+        }
+
+        // Always use the canonical username for roles & Spring Security principal
+        String canonicalUsername = user.getUsername();
+
+        List<String> roles = userRoleRepository.findAllRoleByUser(canonicalUsername);
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (String role : roles) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role));
         }
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(username, user.getPassword(), grantedAuthorities);
-        return userDetails;
+
+        return new org.springframework.security.core.userdetails.User(
+                canonicalUsername,           // principal username
+                user.getPassword(),          // hashed password
+                grantedAuthorities
+        );
     }
 }
